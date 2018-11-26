@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+	<head th:include="header::header">
+	</head>
+	<body>
+		<div id="navBar" th:include="nav"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3" th:if="${showLeftPanel}" th:include="left"></div>
+				<div th:class="${showLeftPanel?'col-md-9':'col-md-12'}" th:include="${module}"></div>
+			</div>
+		</div>
+		<div id="alert" th:include="alert"></div>
+	</body>
+</html>

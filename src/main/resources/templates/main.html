@@ -1,0 +1,36 @@
+<div id="mainPanel">
+	<div v-show="currentDataSource===null"><label th:text="#{message.main.welcome}"></label></div>
+	<div v-show="currentDataSource!==null">
+		<div class="panel panel-info">
+			<div class="panel-heading" th:text="#{label.main.tables}"></div>
+			<div class="panel-body">
+				<div class="container-fluid" style="overflow: auto; height: 800px">
+					<div class="row">
+						<div class="col-md-3">
+							<label th:text="#{label.main.search.table.name}"></label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" v-model="search.tableName" v-on:keyup="filterTableName" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<hr/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3" v-for="tableName in displayTableNameList">
+							<a href="#" class="btn btn-xs btn-default col-md-12" style="text-align: left; overflow: hidden;" v-on:click="showTableDesc(tableName)">
+								<img :title="tableName" src="image/table.gif" />
+								<span :title="tableName">{{tableName}}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="generator_config"></div>
+	<div th:replace="progress_view"></div>
+</div>
+<script src="js/main_panel.js"></script>

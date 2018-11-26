@@ -1,0 +1,100 @@
+<form class="form-horizontal">
+<div class="modal fade" id="generatorConfigModal" tabindex="-1" role="dialog" aria-labelledby="generatorConfigModalLabel" aria-hispanen="true">
+	<div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hispanen="true">
+                    &times;
+                </button>
+		  		<div id="generatorConfigModalLabel" class="text-center">
+		  			<strong th:text="#{label.generator.config}"></strong>
+		  		</div>
+			</div>
+            <div class="modal-body">
+				<div class="panel panel-primary">
+					<div class="panel-heading" th:text="#{label.generator.config.basic}"></div>
+					<div class="panel-body">
+				  		<div class="form-group">
+					  		<label for="template_ds_alias" class="col-md-2 control-label" th:text="#{label.datasource.alias}"></label>
+					  		<div class="col-md-2">
+					  			<input id="template_ds_alias" type="text" class="form-control" v-model="basicConfig.dataSource.alias" readonly="readonly"/>
+					  		</div>
+					  		<label for="template_ds_ip" class="col-md-2 control-label" th:text="#{label.datasource.ip}"></label>
+					  		<div class="col-md-3">
+					  			<input id="template_ds_ip" type="text" class="form-control" v-model="basicConfig.dataSource.ip" readonly="readonly"/>
+					  		</div>
+					  		<label for="template_ds_port" class="col-md-1 control-label" th:text="#{label.datasource.port}"></label>
+					  		<div class="col-md-2">
+					  			<input id="template_ds_port" type="number" class="form-control" v-model="basicConfig.dataSource.port" readonly="readonly"/>
+					  		</div>
+				  		</div>
+				  		<div class="form-group">
+					  		<label for="template_ds_name" class="col-md-2 control-label" th:text="#{label.datasource.user.name}"></label>
+					  		<div class="col-md-2">
+					  			<input id="template_ds_name" type="text" class="form-control" v-model="basicConfig.dataSource.userName" readonly="readonly"/>
+					  		</div>
+					  		<label for="template_ds_db_name" class="col-md-2 control-label" th:text="#{label.datasource.db.name}"></label>
+					  		<div class="col-md-3">
+					  			<select id="template_ds_db_name" class="form-control" v-model="basicConfig.dataSource.dbName">
+					  				<option v-for="dbOpt in databaseOptions" :value="dbOpt">{{dbOpt}}</option>
+					  			</select>
+					  		</div>
+				  		</div>
+				  		<div class="form-group">
+			  				<label for="template_total" class="col-md-2 control-label" th:text="#{label.generator.config.total}"></label>
+							<div class="col-md-2"><input id="template_total" type="number" class="form-control" th:placeholder="#{label.generator.config.total}" min="1" max="1000000" v-model.number="basicConfig.total"/></div>
+			  				<label for="template_table" class="col-md-2 control-label" th:text="#{label.generator.table.name}"></label>
+							<div class="col-md-3"><input id="template_table" type="text" class="form-control" th:placeholder="#{label.generator.table.name}" v-model.number="basicConfig.tableName" readonly="readonly"/></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading" th:text="#{label.generator.config.table}"></div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							<div class="row" style="overflow: auto; height: 400px">
+								<table class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th th:text="#{label.field.name}"></th>
+											<th th:text="#{label.field.type}"></th>
+											<th th:text="#{label.field.value}"></th>
+											<th th:text="#{label.field.rule}"></th>
+											<th th:text="#{label.field.expression}"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="fieldConfig in fieldConfigs">
+											<td>{{fieldConfig.fieldName}}</td>
+											<td>{{fieldConfig.type}}</td>
+											<td><input type="text" class="form-control" th:placeholder="#{label.field.value}" :pattern="fieldConfig.pattern" v-model="fieldConfig.value" v-show="fieldConfig.rule!='sql_exp'"/></td>
+											<td>
+												<select class="form-control" v-model="fieldConfig.rule">
+													<option value="null" th:text="#{label.field.null}"></option>
+													<option value="const" th:text="#{label.field.const}"></option>
+													<option value="incr" th:text="#{label.field.incr}"></option>
+													<option value="sql_exp" th:text="#{label.field.sql_exp}"></option>
+												</select>
+											</td>
+											<td>
+												<input type="text" class="form-control" th:placeholder="#{label.field.incr.expression}" v-show="fieldConfig.rule=='incr'" v-model="fieldConfig.expression"/>
+												<input type="text" class="form-control" th:placeholder="#{label.field.sql.expression}" v-show="fieldConfig.rule=='sql_exp'" v-model="fieldConfig.expression"/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="modal-footer">
+			  	<div class="text-center">
+			  		<button type="button" class="btn btn-success" th:text="#{label.begin.generation}" v-on:click="submitGenerationTask"></button>
+			  		<button type="button" class="btn btn-info" th:text="#{label.temp.save}" v-on:click="tempSaveGenerationConfig"></button>
+			  	</div>
+            </div>
+		</div>
+	</div>
+</div>
+</form>

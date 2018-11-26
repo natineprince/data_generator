@@ -1,0 +1,23 @@
+<div class="modal fade" id="progressViewModal" tabindex="-1" role="dialog" aria-labelledby="progressViewModalLabel" aria-hispanen="true">
+	<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+		  		<div id="progressViewModalLabel" class="text-center">
+		  			<strong th:text="#{label.progress.view}"></strong>
+		  		</div>
+			</div>
+            <div class="modal-body">
+            	<div class="progress">
+				  <div id="generationProgress" class="progress-bar progress-bar-striped active" role="progressbar" :aria-valuenow="task.progress" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+				    <span class="sr-only">{{task.progress}}</span>
+				  </div>
+				</div>
+			</div>
+            <div class="modal-footer">
+				<div class="text-center">
+					<span><label th:text="#{label.current.progress}"></label>{{task.progress}}%</span>
+				</div>
+            </div>
+		</div>
+	</div>
+</div>

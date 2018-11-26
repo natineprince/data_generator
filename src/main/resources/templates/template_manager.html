@@ -1,0 +1,36 @@
+<div id="templateManagerPanel">
+	<div class="panel panel-info">
+		<div class="panel-heading" th:text="#{label.main.templates}"></div>
+		<div class="panel-body">
+			<div class="container-fluid" style="overflow: auto; height: 800px">
+				<div class="row">
+					<div class="col-md-3">
+						<label th:text="#{label.main.search.template.name}"></label>
+					</div>
+					<div class="col-md-3">
+						<input type="text" v-model="search.templateName" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<hr/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3" v-for="templateName in displayTemplateNameList">
+						<a href="#" class="btn btn-xs btn-default col-md-11" style="text-align: left; overflow: hidden;" v-on:click="showTemplate(templateName)">
+							<img :title="templateName" src="image/table.gif" />
+							<span :title="templateName">{{templateName}}</span>
+						</a>
+						<a href="#" class="btn btn-xs btn-danger col-md-1" style="text-align: left; overflow: hidden;" v-on:click="deleteTemplate(templateName)">
+							<span th:title="#{label.delete}" class="glyphicon glyphicon-remove"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="template_editor"></div>
+	<div th:replace="progress_view"></div>
+</div>
+<script src="js/template_manager_panel.js"></script>

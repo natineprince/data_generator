@@ -1,0 +1,33 @@
+<div id="leftPanel" style="overflow: auto; height: 800px">
+	<table class="table table-striped table-bordered table-hover">
+		<caption>
+			<span th:text="#{left.caption}"></span>
+			<span class="pull-right">
+				<button th:text="#{label.create}" type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#editDataSourceModal" v-on:click="newDataSource()"></button>
+			</span>
+		</caption>
+		<thead>
+			<tr>
+				<th>#.</th>
+				<th th:text="#{left.data_source_alias}"></th>
+				<th th:text="#{label.action}"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(ds, index) in dataSourceList">
+				<td>{{index+1}}</td>
+				<td>{{ds.alias}}</td>
+				<td>
+					<div class="btn-group" role="group" aria-label="leftPanelActionBtn">
+						<button th:text="#{label.select}" type="button" class="btn btn-xs btn-default" v-on:click="selectDataSource(index)"></button>
+						<button th:text="#{label.show}" type="button" class="btn btn-xs btn-info" v-on:click="showDataSource(index)"></button>
+						<button th:text="#{label.edit}" type="button" class="btn btn-xs btn-warning" v-on:click="editDataSource(index)"></button>
+						<button th:text="#{label.delete}" type="button" class="btn btn-xs btn-danger" v-on:click="deleteDataSource(index)"></button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:replace="edit_datasource"></div>
+</div>
+<script src="js/left_panel.js"></script>
